@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- setting the language -->
+<html lang="en">
+    <head>
+        <!-- gone are the days of 8-bit ascii... -->
+        <meta charset="UTF-8"> 
+        <!-- set the content width to the device virtual width and zoom to 1 -->
+        <!-- this is crucial for responsive web design -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- import Bootstrap [https://getbootstrap.com/docs/5.1/getting-started/introduction/] -->
+        <!-- I'm using a CDN, there servers are fast and browsers cache CSS and JS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+        <!-- a Favicon to visually distinguish the page in the browser tab list (also, 
+            browsers are looking for it, having it speeds up loading) -->
+        <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+
+        <!-- the page title for the browser tab -->
+        <title>The Open Cage Escape Society</title>
+
+        <!-- my own stylesheet to override Bootstrap -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <!-- scroll spy [https://getbootstrap.com/docs/5.0/components/scrollspy/] updates the navigation bar
+    when user scrolls the page -->
+    <body data-bs-spy="scroll" data-bs-target="#navigator" data-bs-offset="50" onload="load_now()"> 
+        <!-- top level container for Bootstrap to work -->
+        <!-- using container-xl (rather than container-fluid, container or container-{sm,md,lg})
+        it sets the content width for the page according to the screen width, but it won't go beyond 
+        1,140px for the largest screens [https://www.w3schools.com/bootstrap4/bootstrap_containers.asp]
+        -->
+        <!-- <div class="container-fluid bg-black text-white"> -->
+        <div class="container-sm">
+            <!-- 
+                the navigation bar
+                on smaller screens it collapses into an expandable "hamburger" menu
+                [https://getbootstrap.com/docs/5.0/components/navbar/#responsive-behaviors]
+                it works with the scrollspy and anchors to work well with the single-page layout
+                [https://getbootstrap.com/docs/5.0/components/navbar/#scrolling]
+                sticky-top - we want to see the links go active on scroll, so the menu needs to stay up
+                but it can't be fixed-top, as that would overlap the top of the page
+                the colors can be set using colour schemes [https://getbootstrap.com/docs/5.0/components/navbar/#color-schemes]
+                I like to make the background the same colour as the page background, because then I don't have to think about
+                how to match colours.
+            -->
+            <nav id="navigator" class="navbar navbar-expand-sm sticky-top navbar-light" style="background-color: blanchedalmond;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><img id="logo" src="images/optimized/logo_100px.png" alt="The Logo" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar1">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link active" href="#landing">About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#gallery">Great Escapes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contact_us">Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#need_help">When you need real help</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="col">
+                <section id="landing">
+                    <h1>A getaway for the mind</h1>
+                    <div id="top">
+                        <div id="main_text">
+                            <p>The Open Cage Escape Society provides guidance and activities for people in need of a temporary getaway from everyday stresses.</p>
+                            <p>Whatever it is that can take your mind off things, we'll do our best to help you find it.</p>
+                        </div>
+                        <img id="main_image" src="images/optimized/flying_birds_opt.png" alt="Main image, two birds in flight" />
+                    </div>
+                </section>
+            </div>
+            <section id="gallery">
+                <!-- normally hidden overlay div -->
+                <div id="overlay" class="overlay_hidden" onclick="hide_overlay()"></div> 
+                <h2>Great escapes</h2>
+                <p>Checkout some of the many things you can do to reinvigorate your mind.</p>
+                <div class="row">
+                    <!-- col-md-4:
+                        -md- will make sure that if the width of the whole page is smaller than 768px, the 
+                    columns will convert into rows
+                        -4 make each column span 4 spaces in the grid (because there are 3 columns per row) -->
+                    <div class="col-sm-4 gallery_item" id="reading" onclick="gallery_view('reading')">
+                        <h3>Reading</h3>
+                        <!-- Bootstrap provides some niceties for images, like circular vignettes, but they wouldn't show 
+                            since I'm using the same background for both images and the page -->
+                        <img src="images/optimized/reading_woman_opt.png" class="gallery_image" alt="A woman lying on the floor, reading a book." />
+                        <div class="gallery_text">Reading is a one of the most versatile way to escape the reality.</div>
+                    </div>
+                    <div class="col-sm-4 gallery_item" id="travelling" onclick="gallery_view('travelling')">
+                        <h3>Travelling</h3>
+                        <img src="images/optimized/travelling_couple_opt.png" class="gallery_image" alt="A couple with a map and a suitcase in front of a minibus" />
+                        <div class="gallery_text">Travelling takes time, but it can clear the mind and expand your horizons.</div>
+                    </div>
+                    <div class="col-sm-4 gallery_item" id="dating" onclick="gallery_view('dating')">
+                        <h3>Dating</h3>
+                        <img src="images/optimized/dating_couple_opt.png" class="gallery_image" alt="A couple sitting at a table, talking and drinking coffee" />
+                        <div class="gallery_text">Loneliness can be stressful on its own. Unwind and meet new people!</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 gallery_item" id="exercising" onclick="gallery_view('exercising')">
+                        <h3>Exercising</h3>
+                        <img src="images/optimized/cycling_woman_opt.png" class="gallery_image" alt="A woman on a bicycle passing a park bench." />
+                        <div class="gallery_text">Exercise is healthy not just for the body, but also for your mind!</div>
+                    </div>
+                    <div class="col-sm-4 gallery_item" id="live-events" onclick="gallery_view('live-events')">
+                        <h3>Live Events</h3>
+                        <img src="images/optimized/singing_couple_opt.png" class="gallery_image" alt="A woman singing accompanied by a man playing the guitar" />
+                        <div class="gallery_text">Let culture help you refresh your mind!</div>
+                    </div>
+                    <div class="col-sm-4 gallery_item" id="classes" onclick="gallery_view('classes')">
+                        <h3>Classes</h3>
+                        <img src="images/optimized/cooking_couple_opt.png" class="gallery_image" alt="A man and a woman cooking in a kitchen" />
+                        <div class="gallery_text">Learn new things and find new friends and let go of everyday stresses!</div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact_us">
+                <h2>Contact Us</h2>
+                <p>Get in touch and join us in our grand escapes!</p>
+                <div class="form-group">
+                    <form id="contact_form">
+                        <label for="name">Name (required):</label><br>
+                        <input type="text" id="form_name" name="name" class="form-control" onfocusout="validate_me('form_name')" required>
+                        <div class="error" id="form_name_error"></div>
+                        <small>Name and surname, letters spaces and dashes only (Royalty and Americans with numbers in their names, please use Roman numerals without dots.)</small><br><br>
+                        <label for="email">Email (required):</label><br>
+                        <input type="email" id="form_email" name="email" class="form-control" onfocusout="validate_me('form_email')" required>
+                        <div class="error" id="form_email_error"></div><br>
+                        <label for="number">Phone Number (required):</label><br>
+                        <input type="tel" id="form_phone" name="phone" class="form-control" onfocusout="validate_me('form_phone')" required>
+                        <div class="error" id="form_phone_error"></div><br>
+                        <label for="message">Message (required):</label><br>
+                        <!-- textarea doesn't have a type, but adding it makes it easier for vthe validation script -->
+                        <textarea type="textarea" id="form_message" name="message" class="form-control" onfocusout="validate_me('form_message')" required></textarea>
+                        <div class="error" id="form_message_error"></div><br>
+                        <button id="contact_form_button" type="button" onclick="send_message()" class="btn btn-lg btn-primary" disabled>Submit</button>
+                    </form> 
+                </div>
+            </section>
+            <section id="need_help">
+                <h2>If you need real help</h2>
+                <p>An escape is a temporary reprieve and can't help with any bigger issues than everyday stress.</p>
+                <p>If you feel that you need help, please get in touch with the following organisations:</p>
+                <table class="table">
+                    <thead>
+                        <th scope="col">Organisation</th>
+                        <th scope="col">Contact</th>
+                    </thead>
+                    <tbody id="help_org_body">
+
+                    </tbody>
+                </table>
+
+            </section>
+        </div>
+        <!-- include Boootstrap JavaSript [https://getbootstrap.com/docs/5.1/getting-started/introduction/]  -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <!-- my JavaScript -->
+        <script src="script.js"></script>
+    </body>
+</hmtl>

@@ -1,0 +1,142 @@
+@keyframes overlay_inflate {
+    from {width: 10%;} 
+    to {width: 100%;}
+}
+body {
+    /* this is needed for bootstrap's navigation scroll-spy to work */
+    position: relative;
+    /* I played with this a lot,
+    I like the look of the site best
+    when it's not too wide */
+    max-width: 1000px;
+    /* centers the content in the middle
+    of the browser window */
+    margin: auto;
+}
+img {
+    max-width: 100%;
+}
+
+.gallery_item {
+    position: relative;
+}
+
+.gallery_item:hover {
+    /* signal to the user to click on this */
+    background-color: bisque;
+    cursor: pointer; 
+}
+
+.gallery_text {
+    /* I'm choosing this over display:none because it leaves the space
+    for the element and when the hover action changes the background, it just
+    looks better. Also, it makes the page a bit less crammed */
+    visibility: hidden;
+}
+
+#top {
+    display: flex;
+}
+
+#main_text {
+    float: left;
+}
+
+#main_image {
+    max-width: 200px;
+    float: right;
+}
+
+#navigator {
+    /* or the overlay won't overlay it */
+    z-index: 5;
+}
+
+/* making the navbar smaller, overriding the defaults */
+nav, .navbar-brand, .navbar-toggler {
+    padding: 1px;
+}
+
+h1, h2 {
+    color: goldenrod;
+}
+
+h3, h4, h5, h6 {
+    color: peru;
+}
+
+.overlay_showing {
+    position: fixed; /* keep it's left to right, top to bottom, in front of everything else*/
+    display: flex; 
+    justify-content: center; /* without this, everything is in top left */
+    width: 100%; /* let's make it tiny and then use an animation to make it bigger */
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 10; /* Specify a stack order in case you're using a different order for other elements */
+    transition: width 1s;
+}
+
+/* a container for the image and the text
+using flex here, to simply display them one above the other in the middle of the page */
+.overlay_showing > #overlay_content {
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+    background-color: white;
+    margin: auto;
+    border-color: blanchedalmond;
+    border: 2px solid;
+    border-radius: 10px;
+}
+
+#overlay_content > #overlay_image {
+    position: relative;
+    max-width: 300px; /* counting on no devices being narrower */   
+}
+
+/* keeps the text neatly under the image */
+#overlay_content > #overlay_text {
+    position: relative;
+    text-align: center;
+    max-width: 300px; /* counting on no devices being narrower */   
+    background-color: white;
+}
+
+/* the overlay when not in use */
+.overlay_hidden {
+    /* it would probably make more sense to use display: none, but then
+    the transition doesn't work */
+    width: 0%; /* let's make it tiny and then use an animation to make it bigger */
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    /* z-index: -10; Specify a stack order in case you're using a different order for other elements */
+    transition: width 1s;
+
+}
+
+/* I couldn't get the validity api working
+as there seems to be no way to set to valid from JS
+so I'm using custom classes rather than the pseudoclasses */
+input.invalid, textarea.invalid {
+    background-color: pink;
+}
+
+input.valid, textarea.valid {
+    background-color: lightgreen;
+}
+
+input.not_checked, textarea.not_checked {
+    background-color: white;
+}
+
+.error {
+    display: none;
+}
+
+.error_active {
+    display: block;
+    color: red;
+}
