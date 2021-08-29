@@ -1,5 +1,5 @@
 @keyframes overlay_inflate {
-    from {width: 10%;} 
+    from {width: 0%;} 
     to {width: 100%;}
 }
 body {
